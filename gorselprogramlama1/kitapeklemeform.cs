@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace gorselprogramlama1
 {
-    public partial class Form3 : Form
+    public partial class kitapeklemeform : Form
     {
-        public Form3()
+        public kitapeklemeform()
         {
             InitializeComponent();
         }

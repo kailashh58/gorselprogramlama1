@@ -10,11 +10,16 @@ using System.Windows.Forms;
 
 namespace gorselprogramlama1
 {
-    public partial class Form4 : Form
+    public partial class uyeeklemeform : Form
     {
-        public Form4()
+        public uyeeklemeform()
         {
             InitializeComponent();
+        }
+
+        private void Form3_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

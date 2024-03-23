@@ -19,19 +19,19 @@ namespace gorselprogramlama1
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Form2 form2 = new Form2();
+            kitapeklemeform form2 = new kitapeklemeform();
             form2.Show();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            Form3 form3 = new Form3();
+            uyeeklemeform form3 = new uyeeklemeform();
             form3.Show();
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            Form4 form4 = new Form4();
+            kitapemanetislemleriform4 form4 = new kitapemanetislemleriform4();
             form4.Show();
         }
 
