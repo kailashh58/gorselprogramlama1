@@ -16,5 +16,16 @@ namespace gorselprogramlama1
         {
             InitializeComponent();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            emanetislemleriverigirisi form = new emanetislemleriverigirisi();
+            form.Show();
+        }
+
+        private void back_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

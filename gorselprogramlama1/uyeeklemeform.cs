@@ -21,5 +21,16 @@ namespace gorselprogramlama1
         {
 
         }
+
+        private void uyeekleveri_Click(object sender, EventArgs e)
+        {
+            uyeeklemeverigirisi form = new uyeeklemeverigirisi();
+            form.Show();
+        }
+
+        private void back_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

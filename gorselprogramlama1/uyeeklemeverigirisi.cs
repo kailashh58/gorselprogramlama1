@@ -1,43 +1,50 @@
 ﻿using System;
-using System.IO;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using Newtonsoft.Json;
 
+using System;
+using System.IO;
+using System.Windows.Forms;
+
 namespace gorselprogramlama1
 {
-    public partial class kitapeklemeverigirisi : Form
+    public partial class uyeeklemeverigirisi : Form
     {
-       
+
         public class VeriModeli
         {
-            public string KitapAdi { get; set; }
-            public string YazarAdi { get; set; }
-            public string Tur { get; set; }
-           
+            public string UyeAd { get; set; }
+            public string UyeNo { get; set; }
         }
 
-        public kitapeklemeverigirisi()
+
+
+        public uyeeklemeverigirisi()
         {
             InitializeComponent();
         }
 
-        
-        private void kaydetButton_Click(object sender, EventArgs e)
+        private void kaydet_Click(object sender, EventArgs e)
         {
-           
+            // TextBox'lardan alınan verileri bir nesne içine yerleştirin
             VeriModeli veri = new VeriModeli
             {
-                KitapAdi = kitapadiTextBox.Text,
-                YazarAdi = yazaradiTextBox.Text,
-                Tur = turTextBox.Text,
-              
+                UyeAd = uyeadTextBox.Text,
+                UyeNo = uyenoTextBox.Text
             };
 
-            
+             // JSON dosyasına verileri yazın
             string json = JsonConvert.SerializeObject(veri);
             File.WriteAllText("veriler.json", json);
 
-            
+            // Verileri kaydettikten sonra dosyanın varlığını kontrol edin ve oluşturun
             if (!File.Exists("veriler.json"))
             {
                 using (StreamWriter sw = File.CreateText("veriler.json"))
@@ -49,10 +56,14 @@ namespace gorselprogramlama1
             MessageBox.Show("Veriler başarıyla kaydedildi.");
         }
 
-       
-        private void goruntuleButton_Click(object sender, EventArgs e)
+
+
+
+
+
+        private void goruntule_Click(object sender, EventArgs e)
         {
-           
+            // JSON dosyasından verileri okuyun
             if (File.Exists("veriler.json"))
             {
                 try
@@ -60,10 +71,9 @@ namespace gorselprogramlama1
                     string json = File.ReadAllText("veriler.json");
                     VeriModeli veri = JsonConvert.DeserializeObject<VeriModeli>(json);
 
-                    
-                    kitapadiTextBox.Text = veri.KitapAdi;
-                    yazaradiTextBox.Text = veri.YazarAdi;
-                    turTextBox.Text = veri.Tur;
+                    // Okunan verileri TextBox'lara yerleştirin
+                    uyeadTextBox.Text = veri.UyeAd;
+                    uyenoTextBox.Text = veri.UyeNo;
                 }
                 catch (Exception ex)
                 {
@@ -76,9 +86,8 @@ namespace gorselprogramlama1
             }
         }
 
-        private void kaydetbutton_Click_1(object sender, EventArgs e)
-        {
 
-        }
+
+
     }
 }

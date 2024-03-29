@@ -95,6 +95,7 @@
             this.kaydetbutton.TabIndex = 3;
             this.kaydetbutton.Text = "Kaydet";
             this.kaydetbutton.UseVisualStyleBackColor = false;
+            this.kaydetbutton.Click += new System.EventHandler(this.kaydetbutton_Click_1);
             // 
             // Goruntule
             // 
