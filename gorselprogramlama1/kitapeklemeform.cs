@@ -16,5 +16,19 @@ namespace gorselprogramlama1
         {
             InitializeComponent();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            
+            kitapeklemeverigirisi kitapeklemeverigirisiForm = new kitapeklemeverigirisi();
+
+            
+            kitapeklemeverigirisiForm.Show();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+          this.Close(); 
+        }
     }
 }

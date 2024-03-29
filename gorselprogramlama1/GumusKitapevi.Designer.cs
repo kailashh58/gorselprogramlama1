@@ -1,6 +1,6 @@
 ﻿namespace gorselprogramlama1
 {
-    partial class Form1
+    partial class GumusKitapevi
     {
         
         private System.ComponentModel.IContainer components = null;
@@ -80,7 +80,7 @@
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
-            this.Name = "Form1";
+            this.Name = "GumusKitapevi";
             this.Text = "GumusKitapevi";
             this.ResumeLayout(false);
 
