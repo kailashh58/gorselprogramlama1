@@ -39,15 +39,15 @@ namespace gorselprogramlama1
 
         private void Kaydet_Click(object sender, EventArgs e)
         {
-            // TextBox'lardan alınan verileri bir nesne içine yerleştirin
+           
             VeriModeli veri = new VeriModeli
             {
                 KitapTeslim = kitapteslimTextBox.Text,
                 UyelikNo = uyeliknoTextBox.Text,
-                // Diğer verileri de aynı şekilde ekleyin
+                /
             };
 
-            // JSON dosyasına verileri yazın
+            
             string json = JsonConvert.SerializeObject(veri);
             File.WriteAllText("emanetislemleri.json", json);
 
@@ -56,7 +56,7 @@ namespace gorselprogramlama1
 
         private void goruntule_Click(object sender, EventArgs e)
         {
-            // JSON dosyasından verileri okuyun
+            
             if (File.Exists("emanetislemleri.json"))
             {
                 try
@@ -64,7 +64,7 @@ namespace gorselprogramlama1
                     string json = File.ReadAllText("emanetislemleri.json");
                     VeriModeli veri = JsonConvert.DeserializeObject<VeriModeli>(json);
 
-                    // Okunan verileri TextBox'lara yerleştirin
+                    
                     kitapteslimTextBox.Text = veri.KitapTeslim;
                     uyeliknoTextBox.Text = veri.UyelikNo;
                 }
