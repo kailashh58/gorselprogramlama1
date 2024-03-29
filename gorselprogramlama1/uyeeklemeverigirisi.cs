@@ -9,15 +9,14 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Newtonsoft.Json;
 
-using System;
+
 using System.IO;
-using System.Windows.Forms;
 
 namespace gorselprogramlama1
 {
     public partial class uyeeklemeverigirisi : Form
     {
-
+        public List<VeriModeli> uyeler; 
         public class VeriModeli
         {
             public string UyeAd { get; set; }
@@ -29,25 +28,44 @@ namespace gorselprogramlama1
         public uyeeklemeverigirisi()
         {
             InitializeComponent();
+            uyeler = new List<VeriModeli>();
+
+            DataTable booksdata = new DataTable();
+            booksdata.Columns.Add("Member Id:");
+            booksdata.Columns.Add("Member Name:");
+            booksdata.Columns.Add("Member Mail:");
+            dataGridView1.DataSource = uyeler;
+
+
+            try
+            {
+                string json = File.ReadAllText("Uyeler.json");
+                List<VeriModeli> Uyeler = JsonConvert.DeserializeObject<List<VeriModeli>>(json);
+                foreach (VeriModeli uye in Uyeler)
+                {
+                    uyeler.Add(uye);
+                }
+            }
+            catch (Exception ex) { }
         }
 
         private void kaydet_Click(object sender, EventArgs e)
         {
-           
+            
             VeriModeli veri = new VeriModeli
             {
                 UyeAd = uyeadTextBox.Text,
                 UyeNo = uyenoTextBox.Text
             };
-
+            uyeler.Add(veri);
              
-            string json = JsonConvert.SerializeObject(veri);
-            File.WriteAllText("veriler.json", json);
+            string json = JsonConvert.SerializeObject(uyeler);
+            File.WriteAllText("Uyeler.json", json);
 
             
-            if (!File.Exists("veriler.json"))
+            if (!File.Exists("Uyeler.json"))
             {
-                using (StreamWriter sw = File.CreateText("veriler.json"))
+                using (StreamWriter sw = File.CreateText("Uyeler.json"))
                 {
                     sw.WriteLine("");
                 }
@@ -64,20 +82,26 @@ namespace gorselprogramlama1
         private void goruntule_Click(object sender, EventArgs e)
         {
             
-            if (File.Exists("veriler.json"))
+            if (File.Exists("Uyeler.json"))
             {
                 try
                 {
-                    string json = File.ReadAllText("veriler.json");
-                    VeriModeli veri = JsonConvert.DeserializeObject<VeriModeli>(json);
+                    string json = File.ReadAllText("Uyeler.json");
+                    List<VeriModeli> veriler = JsonConvert.DeserializeObject<List<VeriModeli>>(json);
 
-                    
-                    uyeadTextBox.Text = veri.UyeAd;
-                    uyenoTextBox.Text = veri.UyeNo;
+
+                    DataTable dt = new DataTable();
+                    dt.Columns.Add("Member Id:");
+                    dt.Columns.Add("Member Name:");
+                    foreach (VeriModeli veri in veriler)
+                    {
+                        dt.Rows.Add(veri.UyeAd, veri.UyeNo);
+                    }
+                    dataGridView1.DataSource = dt;
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Veriler okunurken bir hata oluştu: " + ex.Message);
+                    MessageBox.Show("Uyeler okunurken bir hata oluştu: " + ex.Message);
                 }
             }
             else

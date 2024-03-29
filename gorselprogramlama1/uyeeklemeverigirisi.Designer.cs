@@ -34,6 +34,8 @@
             this.uyenoTextBox = new System.Windows.Forms.TextBox();
             this.kaydet = new System.Windows.Forms.Button();
             this.goruntule = new System.Windows.Forms.Button();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // Uyeadsoyad
@@ -90,11 +92,22 @@
             this.goruntule.UseVisualStyleBackColor = false;
             this.goruntule.Click += new System.EventHandler(this.goruntule_Click);
             // 
+            // dataGridView1
+            // 
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(485, 41);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowHeadersWidth = 51;
+            this.dataGridView1.RowTemplate.Height = 24;
+            this.dataGridView1.Size = new System.Drawing.Size(441, 366);
+            this.dataGridView1.TabIndex = 3;
+            // 
             // uyeeklemeverigirisi
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(938, 450);
+            this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.goruntule);
             this.Controls.Add(this.kaydet);
             this.Controls.Add(this.uyenoTextBox);
@@ -103,6 +116,7 @@
             this.Controls.Add(this.Uyeadsoyad);
             this.Name = "uyeeklemeverigirisi";
             this.Text = "uyeeklemeverigirisi";
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -116,5 +130,6 @@
         private System.Windows.Forms.TextBox uyenoTextBox;
         private System.Windows.Forms.Button kaydet;
         private System.Windows.Forms.Button goruntule;
+        private System.Windows.Forms.DataGridView dataGridView1;
     }
 }

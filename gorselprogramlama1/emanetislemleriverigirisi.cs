@@ -8,10 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-
-using System;
 using System.IO;
-using System.Windows.Forms;
 using Newtonsoft.Json;
 
 namespace gorselprogramlama1
@@ -19,7 +16,7 @@ namespace gorselprogramlama1
     public partial class emanetislemleriverigirisi : Form
     {
 
-
+        List<VeriModeli> emanetler;
         public class VeriModeli
         {
             public string KitapTeslim { get; set; }
@@ -34,7 +31,14 @@ namespace gorselprogramlama1
 
         public emanetislemleriverigirisi()
         {
+            emanetler = new List<VeriModeli>();
             InitializeComponent();
+            DataTable booksdata = new DataTable();
+            booksdata.Columns.Add("Member Id:");
+            booksdata.Columns.Add("Member Name:");
+            booksdata.Columns.Add("Member Mail:");
+            dataGridView1.DataSource = emanetler;
+
         }
 
         private void Kaydet_Click(object sender, EventArgs e)
@@ -44,11 +48,11 @@ namespace gorselprogramlama1
             {
                 KitapTeslim = kitapteslimTextBox.Text,
                 UyelikNo = uyeliknoTextBox.Text,
-                /
+                
             };
+            emanetler.Add(veri);
 
-            
-            string json = JsonConvert.SerializeObject(veri);
+            string json = JsonConvert.SerializeObject(emanetler);
             File.WriteAllText("emanetislemleri.json", json);
 
             MessageBox.Show("Veriler başarıyla kaydedildi.");
@@ -61,12 +65,17 @@ namespace gorselprogramlama1
             {
                 try
                 {
-                    string json = File.ReadAllText("emanetislemleri.json");
-                    VeriModeli veri = JsonConvert.DeserializeObject<VeriModeli>(json);
+                    string jsondata = File.ReadAllText("emanetislemleri.json");
+                    List<VeriModeli> veriler = JsonConvert.DeserializeObject<List<VeriModeli>>(jsondata);
 
-                    
-                    kitapteslimTextBox.Text = veri.KitapTeslim;
-                    uyeliknoTextBox.Text = veri.UyelikNo;
+                    DataTable dt = new DataTable();
+                    dt.Columns.Add("Member Id:");
+                    dt.Columns.Add("Member Name:");
+                    foreach (VeriModeli veri in veriler)
+                    {
+                        dt.Rows.Add(veri.KitapTeslim, veri.UyelikNo);
+                    }
+                    dataGridView1.DataSource = dt;
                 }
                 catch (Exception ex)
                 {

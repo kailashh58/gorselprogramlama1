@@ -36,6 +36,8 @@
             this.turTextBox = new System.Windows.Forms.TextBox();
             this.kaydetbutton = new System.Windows.Forms.Button();
             this.Goruntule = new System.Windows.Forms.Button();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // label2
@@ -95,7 +97,7 @@
             this.kaydetbutton.TabIndex = 3;
             this.kaydetbutton.Text = "Kaydet";
             this.kaydetbutton.UseVisualStyleBackColor = false;
-            this.kaydetbutton.Click += new System.EventHandler(this.kaydetbutton_Click_1);
+            this.kaydetbutton.Click += new System.EventHandler(this.kaydetButton_Click);
             // 
             // Goruntule
             // 
@@ -106,12 +108,24 @@
             this.Goruntule.TabIndex = 3;
             this.Goruntule.Text = "Görüntüle";
             this.Goruntule.UseVisualStyleBackColor = false;
+            this.Goruntule.Click += new System.EventHandler(this.goruntuleButton_Click);
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(450, 37);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowHeadersWidth = 51;
+            this.dataGridView1.RowTemplate.Height = 24;
+            this.dataGridView1.Size = new System.Drawing.Size(484, 271);
+            this.dataGridView1.TabIndex = 4;
             // 
             // kitapeklemeverigirisi
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(514, 376);
+            this.ClientSize = new System.Drawing.Size(956, 406);
+            this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.Goruntule);
             this.Controls.Add(this.kaydetbutton);
             this.Controls.Add(this.turTextBox);
@@ -122,6 +136,7 @@
             this.Controls.Add(this.label2);
             this.Name = "kitapeklemeverigirisi";
             this.Text = "kitapeklemeverigirisi";
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -136,5 +151,6 @@
         private System.Windows.Forms.TextBox turTextBox;
         private System.Windows.Forms.Button kaydetbutton;
         private System.Windows.Forms.Button Goruntule;
+        private System.Windows.Forms.DataGridView dataGridView1;
     }
 }

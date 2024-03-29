@@ -1,13 +1,17 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.Windows.Forms;
 using Newtonsoft.Json;
 
 namespace gorselprogramlama1
 {
+
     public partial class kitapeklemeverigirisi : Form
     {
-       
+
+        public List<VeriModeli> books;
         public class VeriModeli
         {
             public string KitapAdi { get; set; }
@@ -18,13 +22,32 @@ namespace gorselprogramlama1
 
         public kitapeklemeverigirisi()
         {
+            this.books = new List<VeriModeli>();
             InitializeComponent();
+            DataTable booksdata = new DataTable();
+            booksdata.Columns.Add("Member Id:");
+            booksdata.Columns.Add("Member Name:");
+            booksdata.Columns.Add("Member Mail:");
+            dataGridView1.DataSource = books;
+
+
+            try
+            {
+                string json = File.ReadAllText("veriler.json");
+                List < VeriModeli > booksAll = JsonConvert.DeserializeObject<List<VeriModeli>>(json);
+                foreach (VeriModeli book in booksAll)
+                {
+                    books.Add(book);
+                }
+            }
+            catch (Exception ex) { }
         }
 
         
         private void kaydetButton_Click(object sender, EventArgs e)
         {
-           
+            
+
             VeriModeli veri = new VeriModeli
             {
                 KitapAdi = kitapadiTextBox.Text,
@@ -32,9 +55,9 @@ namespace gorselprogramlama1
                 Tur = turTextBox.Text,
               
             };
-
             
-            string json = JsonConvert.SerializeObject(veri);
+            books.Add(veri);
+            string json = JsonConvert.SerializeObject(books);
             File.WriteAllText("veriler.json", json);
 
             
@@ -58,12 +81,17 @@ namespace gorselprogramlama1
                 try
                 {
                     string json = File.ReadAllText("veriler.json");
-                    VeriModeli veri = JsonConvert.DeserializeObject<VeriModeli>(json);
+                    List<VeriModeli> veriler = JsonConvert.DeserializeObject<List<VeriModeli>>(json);
 
-                    
-                    kitapadiTextBox.Text = veri.KitapAdi;
-                    yazaradiTextBox.Text = veri.YazarAdi;
-                    turTextBox.Text = veri.Tur;
+                    DataTable dt = new DataTable();
+                    dt.Columns.Add("Member Id:");
+                    dt.Columns.Add("Member Name:");
+                    dt.Columns.Add("Member Mail:");
+                    foreach (VeriModeli veri in veriler)
+                    {
+                        dt.Rows.Add(veri.KitapAdi,veri.YazarAdi,veri.Tur);
+                    }
+                    dataGridView1.DataSource = dt;
                 }
                 catch (Exception ex)
                 {
@@ -77,6 +105,11 @@ namespace gorselprogramlama1
         }
 
         private void kaydetbutton_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Goruntule_Click(object sender, EventArgs e)
         {
 
         }
