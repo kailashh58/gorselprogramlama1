@@ -22,11 +22,11 @@ namespace gorselprogramlama1
         public kitapeklemeverigirisi()
         {
             InitializeComponent();
-            CreateDatabase();
+            veritabaniolustur();
             Goruntule_Click(null, null);
         }
 
-        private void CreateDatabase()
+        private void veritabaniolustur()
         {
             if (!File.Exists("kitaplar.db"))
             {
