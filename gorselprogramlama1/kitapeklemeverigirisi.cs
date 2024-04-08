@@ -1,117 +1,98 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SQLite;
 using System.IO;
 using System.Windows.Forms;
 using Newtonsoft.Json;
 
 namespace gorselprogramlama1
 {
-
     public partial class kitapeklemeverigirisi : Form
     {
+        private string connectionString = "Data Source=kitaplar.db;Version=3;";
 
-        public List<VeriModeli> books;
         public class VeriModeli
         {
             public string KitapAdi { get; set; }
             public string YazarAdi { get; set; }
             public string Tur { get; set; }
-           
         }
 
         public kitapeklemeverigirisi()
         {
-            this.books = new List<VeriModeli>();
             InitializeComponent();
-            DataTable booksdata = new DataTable();
-            booksdata.Columns.Add("Member Id:");
-            booksdata.Columns.Add("Member Name:");
-            booksdata.Columns.Add("Member Mail:");
-            dataGridView1.DataSource = books;
-
-
-            try
-            {
-                string json = File.ReadAllText("veriler.json");
-                List < VeriModeli > booksAll = JsonConvert.DeserializeObject<List<VeriModeli>>(json);
-                foreach (VeriModeli book in booksAll)
-                {
-                    books.Add(book);
-                }
-            }
-            catch (Exception ex) { }
+            CreateDatabase();
+            Goruntule_Click(null, null);
         }
 
-        
-        private void kaydetButton_Click(object sender, EventArgs e)
+        private void CreateDatabase()
         {
-            
+            if (!File.Exists("kitaplar.db"))
+            {
+                SQLiteConnection.CreateFile("kitaplar.db");
+                string query = "CREATE TABLE IF NOT EXISTS Kitaplar (KitapAdi TEXT, YazarAdi TEXT, Tur TEXT)";
+                using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SQLiteCommand command = new SQLiteCommand(query, connection))
+                    {
+                        command.ExecuteNonQuery();
+                    }
+                }
+            }
+        }
 
+        private void KaydetButton_Click(object sender, EventArgs e)
+        {
             VeriModeli veri = new VeriModeli
             {
                 KitapAdi = kitapadiTextBox.Text,
                 YazarAdi = yazaradiTextBox.Text,
-                Tur = turTextBox.Text,
-              
+                Tur = turTextBox.Text
             };
-            
-            books.Add(veri);
-            string json = JsonConvert.SerializeObject(books);
-            File.WriteAllText("veriler.json", json);
 
-            
-            if (!File.Exists("veriler.json"))
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
-                using (StreamWriter sw = File.CreateText("veriler.json"))
+                connection.Open();
+                string query = "INSERT INTO Kitaplar (KitapAdi, YazarAdi, Tur) VALUES (@KitapAdi, @YazarAdi, @Tur)";
+                using (SQLiteCommand command = new SQLiteCommand(query, connection))
                 {
-                    sw.WriteLine("");
+                    command.Parameters.AddWithValue("@KitapAdi", veri.KitapAdi);
+                    command.Parameters.AddWithValue("@YazarAdi", veri.YazarAdi);
+                    command.Parameters.AddWithValue("@Tur", veri.Tur);
+                    command.ExecuteNonQuery();
                 }
             }
 
-            MessageBox.Show("Veriler başarıyla kaydedildi.");
-        }
-
-       
-        private void goruntuleButton_Click(object sender, EventArgs e)
-        {
-           
-            if (File.Exists("veriler.json"))
-            {
-                try
-                {
-                    string json = File.ReadAllText("veriler.json");
-                    List<VeriModeli> veriler = JsonConvert.DeserializeObject<List<VeriModeli>>(json);
-
-                    DataTable dt = new DataTable();
-                    dt.Columns.Add("Member Id:");
-                    dt.Columns.Add("Member Name:");
-                    dt.Columns.Add("Member Mail:");
-                    foreach (VeriModeli veri in veriler)
-                    {
-                        dt.Rows.Add(veri.KitapAdi,veri.YazarAdi,veri.Tur);
-                    }
-                    dataGridView1.DataSource = dt;
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Veriler okunurken bir hata oluştu: " + ex.Message);
-                }
-            }
-            else
-            {
-                MessageBox.Show("Veri dosyası bulunamadı.");
-            }
-        }
-
-        private void kaydetbutton_Click_1(object sender, EventArgs e)
-        {
-
+            MessageBox.Show("Veri başarıyla kaydedildi.");
+            Goruntule_Click(null, null); // Veriyi güncelle
         }
 
         private void Goruntule_Click(object sender, EventArgs e)
         {
+            DataTable dt = new DataTable();
+            dt.Columns.Add("Kitap Adı");
+            dt.Columns.Add("Yazar Adı");
+            dt.Columns.Add("Tür");
 
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+                string query = "SELECT KitapAdi, YazarAdi, Tur FROM Kitaplar";
+                using (SQLiteCommand command = new SQLiteCommand(query, connection))
+                {
+                    using (SQLiteDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            dt.Rows.Add(reader["KitapAdi"].ToString(), reader["YazarAdi"].ToString(), reader["Tur"].ToString());
+                        }
+                    }
+                }
+            }
+
+            dataGridView1.DataSource = dt;
         }
     }
 }

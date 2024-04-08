@@ -73,6 +73,7 @@
             this.kitapadiTextBox.Name = "kitapadiTextBox";
             this.kitapadiTextBox.Size = new System.Drawing.Size(188, 22);
             this.kitapadiTextBox.TabIndex = 2;
+            this.kitapadiTextBox.TextChanged += new System.EventHandler(this.kitapadiTextBox_TextChanged);
             // 
             // yazaradiTextBox
             // 

@@ -26,7 +26,7 @@
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent()
+        private void bilesenibaslat()
         {
             this.Uyeadsoyad = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
