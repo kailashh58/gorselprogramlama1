@@ -87,5 +87,11 @@ namespace gorselprogramlama1
                 MessageBox.Show("Veri dosyası bulunamadı.");
             }
         }
+
+        private void kitapteslimTextBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
+//deneme

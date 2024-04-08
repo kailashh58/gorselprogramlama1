@@ -64,6 +64,7 @@
             this.kitapteslimTextBox.Name = "kitapteslimTextBox";
             this.kitapteslimTextBox.Size = new System.Drawing.Size(239, 22);
             this.kitapteslimTextBox.TabIndex = 1;
+            this.kitapteslimTextBox.TextChanged += new System.EventHandler(this.kitapteslimTextBox_TextChanged);
             // 
             // uyeliknoTextBox
             // 
