@@ -95,3 +95,4 @@ namespace gorselprogramlama1
         }
     }
 }
+//deneme
